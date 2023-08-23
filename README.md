@@ -2,6 +2,8 @@
 
 This Python script uses Selenium to book a tee time at any of the two Burnaby golf courses. It is aimed to book tee times at the earliest time they become available.
 
+You will need an existing account with [Golf Burnaby](https://www.golfburnaby.ca)
+
 The script will do the following:
 
 1.  Get the current date and calculate the earliest available day for booking (+5 days)
