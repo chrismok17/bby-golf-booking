@@ -3,10 +3,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import StaleElementReferenceException, TimeoutException
-import time
-import datetime
 from dotenv import load_dotenv
-import os
+import configparser
+import os, sys, time, datetime
 
 
 def get_day():
@@ -101,9 +100,18 @@ def enter_email(wait):
 
     Outcome: Email and password are submitted succesfully and are taken to the agreement and reservation page.
     """
-    load_dotenv()
-    email = os.getenv("EMAIL")
-    password = os.getenv("PASSWORD")
+
+    if getattr(sys, "frozen", False):
+        # Executable
+        config = configparser.ConfigParser()
+        config.read("config.ini")
+        email = config["Credentials"]["email"]
+        password = config["Credentials"]["password"]
+    else:
+        # Dev Environment
+        load_dotenv()
+        email = os.getenv("EMAIL")
+        password = os.getenv("PASSWORD")
 
     try:
         email_input = wait.until(
